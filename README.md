@@ -12,6 +12,6 @@ How to use:
 1. Download script or copy and past script(txt) as .ps1 file
 2. Open powershell (or CMD) and typ (or copy paste): powershell -noexit -ExecutionPolicy Bypass -File "full path to file".
 ```
-   powershell -noexit -ExecutionPolicy Bypass -File "C:\Users\$env:username\Downloads\flipfluidsbuilder_v1.0.ps1"
+powershell -noexit -ExecutionPolicy Bypass -File "C:\Users\$env:username\Downloads\flipfluidsbuilder_v1.0.ps1"
 ```
 4. Sit back and relax.
