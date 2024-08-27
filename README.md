@@ -14,4 +14,4 @@ How to use:
 ```
 powershell -noexit -ExecutionPolicy Bypass -File "C:\Users\$env:username\Downloads\flipfluidsbuilder_v1.0.ps1"
 ```
-4. Sit back and relax.
+3. Sit back and relax.
