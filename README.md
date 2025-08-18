@@ -11,11 +11,8 @@ More info: https://learn.microsoft.com/en-us/powershell/module/microsoft.powersh
 How to use: 
 1. Download script to Downloads folder. Download v1.1 for FlipFluids 1.8.4+
 2. Open powershell (or CMD) and typ (or copy paste): powershell -noexit -ExecutionPolicy Bypass -File "full path to file".
-```
-powershell -noexit -ExecutionPolicy Bypass -File "C:\Users\$env:username\Downloads\flipfluidsbuilder_v1.0.ps1"
-```
 FlipFluids 1.8.4+:
 ```
-powershell -noexit -ExecutionPolicy Bypass -File "C:\Users\$env:username\Downloads\flipfluidsbuilder_v1.1.ps1"
+powershell -noexit -ExecutionPolicy Bypass -File "C:\Users\$env:username\Downloads\flipfluidsbuilder_v1.1-1.ps1"
 ```
 3. Sit back and relax.
