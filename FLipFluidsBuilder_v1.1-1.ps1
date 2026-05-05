@@ -51,8 +51,8 @@ $files = @(
         OutFile = 'C:\FlipFluidstmp\cmake-3.30.2-windows-x86_64.zip'
     },
     @{
-        Uri = "https://www.python.org/ftp/python/3.14.4/python-3.14.4-embed-amd64.zip"
-        OutFile = 'C:\FlipFluidstmp\python-3.14.4-embed-amd64.zip'
+        Uri = "https://www.python.org/ftp/python/3.12.5/python-3.12.5-embed-amd64.zip"
+        OutFile = 'C:\FlipFluidstmp\python-3.12.5-embed-amd64.zip'
     }
     @{
         Uri = "https://github.com/rlguy/Blender-FLIP-Fluids/archive/refs/heads/master.zip"
@@ -121,7 +121,7 @@ copy-item "C:\FlipFluidstmp\mingw64\bin\mingw32-make.exe" -Destination "C:\FlipF
 
 # set env vars
 Write-Host "adding paths to env...(only in this powershell session)"
-$env:Path += ';C:\FlipFluidstmp\mingw64\bin;C:\FlipFluidstmp\cmake-3.30.2-windows-x86_64\cmake-3.30.2-windows-x86_64\bin;C:\FlipFluidstmp\python-3.14.4-embed-amd64;C:\FlipFluidstmp\Imath\Imath-3.2.1\bin;C:\FlipFluidstmp\alembic\alembic-1.8.8\bin;' 
+$env:Path += ';C:\FlipFluidstmp\mingw64\bin;C:\FlipFluidstmp\cmake-3.30.2-windows-x86_64\cmake-3.30.2-windows-x86_64\bin;C:\FlipFluidstmp\python-3.12.5-embed-amd64;C:\FlipFluidstmp\Imath\Imath-3.2.1\bin;C:\FlipFluidstmp\alembic\alembic-1.8.8\bin;' 
 
 # complie imath:
 Write-Host "Start compiling/building Imath and alembic..."
@@ -139,7 +139,7 @@ cd C:\FlipFluidstmp
 
 # start compiling
 Write-Host "Start compiling/building Flip Fluids..."
-C:\FlipFluidstmp\python-3.14.4-embed-amd64\python.exe C:\FlipFluidstmp\Blender-FLIP-Fluids-master\Blender-FLIP-Fluids-master\build.py --clean
+C:\FlipFluidstmp\python-3.12.5-embed-amd64\python.exe C:\FlipFluidstmp\Blender-FLIP-Fluids-master\Blender-FLIP-Fluids-master\build.py --clean
 
 # Compress/zip build to zip file so we can import this in blender.
 Write-host "Zipping build to: C:\FlipFluidstmp\flip_fluids_addon.zip"
