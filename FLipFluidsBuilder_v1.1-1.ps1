@@ -19,11 +19,19 @@ optimization: https://stackoverflow.com/questions/28682642/powershell-why-is-usi
 Version:
 18-08-2025: FlipFluidsBuilder_v1.1-1: change MingGW source to more updated version: v13, change Imath to v3.2.1
 14-08-2025: FlipFluidsBuilder_v1.1: added new depenencies for flipfluids 1.8.4
-05-05-2026: FlipFluidsBuilder_v1.1: update python to 3.14.4 (was 3.12.5)
+05-05-2026: FlipFluidsBuilder_v1.1-1: update python to 3.14.4 (was 3.12.5)
+05-05-2026: FlipFluidsBuilder_v1.1-1: add version control, instead of adding to $env:path start with clean path. This ensures the script works with supplied python version even if diffrent version(s) of pyhton is installed on system. Tested with fliplfuids 1.8.6
 #>
 
+# version control
+$peazipver = "9.8.0"
+$cmakever = "3.30.2"
+$pythonver = "3.14.4"
+$alembicver = "1.8.8"
+$Imathver = "3.2.1"
+
 Write-Host "####################################################################"
-Write-Host "# Starting Script... FlipsFluidsBuilder_v1.1 for Flipfluids 1.8.4+ #"
+Write-Host "# Starting Script... FlipsFluidsBuilder_v1.1-1 for Flipfluids 1.8.6+ #"
 Write-Host "####################################################################"
 
 #make base folder to store all files:
@@ -39,32 +47,32 @@ if (Test-Path -Path $Folder) {
 # create array to store downlaod links and output
 $files = @(
     @{
-        Uri = "https://github.com/peazip/PeaZip/releases/download/9.8.0/peazip_portable-9.8.0.WINDOWS.zip"
-        OutFile = 'C:\FlipFluidstmp\peazip.zip'
+        Uri = "https://github.com/peazip/PeaZip/releases/download/$peazipver/peazip_portable-$peazipver.WINDOWS.zip"
+        OutFile = "C:\FlipFluidstmp\peazip.zip"
     }
     @{
         Uri = "https://github.com/niXman/mingw-builds-binaries/releases/download/15.2.0-rt_v13-rev0/x86_64-15.2.0-release-posix-seh-msvcrt-rt_v13-rev0.7z"
-        OutFile = 'C:\FlipFluidstmp\x86_64-15.2.0-release-posix-seh-msvcrt-rt_v13-rev0.7z'
+        OutFile = "C:\FlipFluidstmp\x86_64-15.2.0-release-posix-seh-msvcrt-rt_v13-rev0.7z"
     },
     @{
-        Uri = "https://github.com/Kitware/CMake/releases/download/v3.30.2/cmake-3.30.2-windows-x86_64.zip"
-        OutFile = 'C:\FlipFluidstmp\cmake-3.30.2-windows-x86_64.zip'
+        Uri = "https://github.com/Kitware/CMake/releases/download/v$cmakever/cmake-$cmakever-windows-x86_64.zip"
+        OutFile = "C:\FlipFluidstmp\cmake-$cmakever-windows-x86_64.zip"
     },
     @{
-        Uri = "https://www.python.org/ftp/python/3.12.5/python-3.12.5-embed-amd64.zip"
-        OutFile = 'C:\FlipFluidstmp\python-3.12.5-embed-amd64.zip'
+        Uri = "https://www.python.org/ftp/python/$pythonver/python-$pythonver-embed-amd64.zip"
+        OutFile = "C:\FlipFluidstmp\python-$pythonver-embed-amd64.zip"
     }
     @{
         Uri = "https://github.com/rlguy/Blender-FLIP-Fluids/archive/refs/heads/master.zip"
-        OutFile = 'C:\FlipFluidstmp\Blender-FLIP-Fluids-master.zip'
+        OutFile = "C:\FlipFluidstmp\Blender-FLIP-Fluids-master.zip"
     }
     @{
-        Uri = "https://github.com/alembic/alembic/archive/refs/tags/1.8.8.zip"
-        OutFile = 'C:\FlipFluidstmp\alembic.zip'
+        Uri = "https://github.com/alembic/alembic/archive/refs/tags/$alembicver.zip"
+        OutFile = "C:\FlipFluidstmp\alembic.zip"
     }
     @{
-        Uri = "https://github.com/AcademySoftwareFoundation/Imath/releases/download/v3.2.1/Imath-3.2.1.tar.gz"
-        OutFile = 'C:\FlipFluidstmp\Imath.tar.gz'
+        Uri = "https://github.com/AcademySoftwareFoundation/Imath/releases/download/v$Imathver/Imath-$Imathver.tar.gz"
+        OutFile = "C:\FlipFluidstmp\Imath.tar.gz"
     }
 )
 
@@ -115,31 +123,37 @@ C:\FlipFluidstmp\peazip\res\bin\7z\7z.exe x x86_64-15.2.0-release-posix-seh-msvc
 # extract Imath
 C:\FlipFluidstmp\peazip\res\bin\7z\7z.exe x Imath.tar.gz
 C:\FlipFluidstmp\peazip\res\bin\7z\7z.exe x Imath.tar -o*
-#copy and rename item for make
+# copy and rename item for make
 Write-Host "copy and rename C:\FlipFluidstmp\mingw64\bin\mingw32-make.exe to make.exe..."
 copy-item "C:\FlipFluidstmp\mingw64\bin\mingw32-make.exe" -Destination "C:\FlipFluidstmp\mingw64\bin\make.exe"
 
-# set env vars
 Write-Host "adding paths to env...(only in this powershell session)"
-$env:Path += ';C:\FlipFluidstmp\mingw64\bin;C:\FlipFluidstmp\cmake-3.30.2-windows-x86_64\cmake-3.30.2-windows-x86_64\bin;C:\FlipFluidstmp\python-3.12.5-embed-amd64;C:\FlipFluidstmp\Imath\Imath-3.2.1\bin;C:\FlipFluidstmp\alembic\alembic-1.8.8\bin;' 
+# backup current path
+$pathbck = $env:Path
+# create new path
+$env:Path = "C:\FlipFluidstmp\mingw64\bin;C:\FlipFluidstmp\cmake-$cmakever-windows-x86_64\cmake-$cmakever-windows-x86_64\bin;C:\FlipFluidstmp\python-$pythonver-embed-amd64;C:\FlipFluidstmp\Imath\Imath-$Imathver\bin;C:\FlipFluidstmp\alembic\alembic-$alembicver\bin;" 
 
-# complie imath:
+# compile imath:
 Write-Host "Start compiling/building Imath and alembic..."
-cd C:\FlipFluidstmp\Imath\Imath-3.2.1
-cmake . -G "MinGW Makefiles" -DCMAKE_INSTALL_PREFIX=C:\FlipFluidstmp\Imath\Imath-3.2.1\
+cd C:\FlipFluidstmp\Imath\Imath-$Imathver
+cmake . -G "MinGW Makefiles" -DCMAKE_INSTALL_PREFIX=C:\FlipFluidstmp\Imath\Imath-$Imathver\
 cmake --build . --target install --config Release
 
-#complie alimbic
-cd C:\FlipFluidstmp\alembic\alembic-1.8.8
+#compile alimbic
+cd C:\FlipFluidstmp\alembic\alembic-$alembicver
 #$env:Path += 'C:\FlipFluidstmp\imathlibs\bin;'
-cmake . -G "MinGW Makefiles" -DCMAKE_INSTALL_PREFIX=C:\FlipFluidstmp\alembic\alembic-1.8.8\ Imath_DIR=C:\FlipFluidstmp\Imath\Imath-3.2.1\lib\cmake\Imath
+cmake . -G "MinGW Makefiles" -DCMAKE_INSTALL_PREFIX=C:\FlipFluidstmp\alembic\alembic-$alembicver\ Imath_DIR=C:\FlipFluidstmp\Imath\Imath-$Imathver\lib\cmake\Imath
 cmake --build .
 
 cd C:\FlipFluidstmp
 
 # start compiling
 Write-Host "Start compiling/building Flip Fluids..."
-C:\FlipFluidstmp\python-3.12.5-embed-amd64\python.exe C:\FlipFluidstmp\Blender-FLIP-Fluids-master\Blender-FLIP-Fluids-master\build.py --clean
+# define python exe and script
+$pythonExe = "C:\FlipFluidstmp\python-$pythonver-embed-amd64\python.exe"
+$buildScript = "C:\FlipFluidstmp\Blender-FLIP-Fluids-master\Blender-FLIP-Fluids-master\build.py"
+# start build with parameter
+& $pythonExe $buildScript --clean
 
 # Compress/zip build to zip file so we can import this in blender.
 Write-host "Zipping build to: C:\FlipFluidstmp\flip_fluids_addon.zip"
@@ -148,6 +162,8 @@ $compress = @{
   CompressionLevel = "Fastest"
   DestinationPath = "C:\FlipFluidstmp\flip_fluids_addon.zip"
 }
+# restore path
+$env:Path = $pathbck
 Compress-Archive @compress
 write-host ""
 Write-Host "All done ! copy C:\FlipFluidstmp\flip_fluids_addon.zip to some other location and you can delete the folder: C:\FlipFluidstmp"
