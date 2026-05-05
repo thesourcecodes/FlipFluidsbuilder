@@ -121,7 +121,7 @@ copy-item "C:\FlipFluidstmp\mingw64\bin\mingw32-make.exe" -Destination "C:\FlipF
 
 # set env vars
 Write-Host "adding paths to env...(only in this powershell session)"
-$env:Path += ';C:\FlipFluidstmp\mingw64\bin;C:\FlipFluidstmp\cmake-3.30.2-windows-x86_64\cmake-3.30.2-windows-x86_64\bin;C:\FlipFluidstmp\python-3.12.5-embed-amd64;C:\FlipFluidstmp\Imath\Imath-3.2.1\bin;C:\FlipFluidstmp\alembic\alembic-1.8.8\bin;' 
+$env:Path += ';C:\FlipFluidstmp\mingw64\bin;C:\FlipFluidstmp\cmake-3.30.2-windows-x86_64\cmake-3.30.2-windows-x86_64\bin;C:\FlipFluidstmp\python-3.14.4-embed-amd64;C:\FlipFluidstmp\Imath\Imath-3.2.1\bin;C:\FlipFluidstmp\alembic\alembic-1.8.8\bin;' 
 
 # complie imath:
 Write-Host "Start compiling/building Imath and alembic..."
