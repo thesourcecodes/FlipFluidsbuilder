@@ -19,7 +19,7 @@ optimization: https://stackoverflow.com/questions/28682642/powershell-why-is-usi
 Version:
 18-08-2025: FlipFluidsBuilder_v1.1-1: change MingGW source to more updated version: v13, change Imath to v3.2.1
 14-08-2025: FlipFluidsBuilder_v1.1: added new depenencies for flipfluids 1.8.4
-05-05-2026: FlipFluidsBuilder_v1.1: update python to 14.4 (was 12.5)
+05-05-2026: FlipFluidsBuilder_v1.1: update python to 3.14.4 (was 3.12.5)
 #>
 
 Write-Host "####################################################################"
