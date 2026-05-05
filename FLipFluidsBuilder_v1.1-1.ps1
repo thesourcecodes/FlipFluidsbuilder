@@ -19,6 +19,7 @@ optimization: https://stackoverflow.com/questions/28682642/powershell-why-is-usi
 Version:
 18-08-2025: FlipFluidsBuilder_v1.1-1: change MingGW source to more updated version: v13, change Imath to v3.2.1
 14-08-2025: FlipFluidsBuilder_v1.1: added new depenencies for flipfluids 1.8.4
+05-05-2026: FlipFluidsBuilder_v1.1: update python to 14.4 (was 12.5)
 #>
 
 Write-Host "####################################################################"
@@ -50,8 +51,8 @@ $files = @(
         OutFile = 'C:\FlipFluidstmp\cmake-3.30.2-windows-x86_64.zip'
     },
     @{
-        Uri = "https://www.python.org/ftp/python/3.12.5/python-3.12.5-embed-amd64.zip"
-        OutFile = 'C:\FlipFluidstmp\python-3.12.5-embed-amd64.zip'
+        Uri = "https://www.python.org/ftp/python/3.14.4/python-3.14.4-embed-amd64.zip"
+        OutFile = 'C:\FlipFluidstmp\python-3.14.4-embed-amd64.zip'
     }
     @{
         Uri = "https://github.com/rlguy/Blender-FLIP-Fluids/archive/refs/heads/master.zip"
@@ -138,7 +139,7 @@ cd C:\FlipFluidstmp
 
 # start compiling
 Write-Host "Start compiling/building Flip Fluids..."
-C:\FlipFluidstmp\python-3.12.5-embed-amd64\python.exe C:\FlipFluidstmp\Blender-FLIP-Fluids-master\Blender-FLIP-Fluids-master\build.py --clean
+C:\FlipFluidstmp\python-3.14.4-embed-amd64\python.exe C:\FlipFluidstmp\Blender-FLIP-Fluids-master\Blender-FLIP-Fluids-master\build.py --clean
 
 # Compress/zip build to zip file so we can import this in blender.
 Write-host "Zipping build to: C:\FlipFluidstmp\flip_fluids_addon.zip"
